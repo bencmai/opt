@@ -24,8 +24,8 @@ keyboard --vckeymap=us --xlayouts='us'
 lang en_US.UTF-8
 
 # Network information
-network  --bootproto=dhcp --device=eth0 --ipv6=auto --activate
-network  --hostname=mini
+network  --bootproto=dhcp --device=eth0 --noipv6 --activate --onboot=yes
+network  --hostname=template
 
 # Root password
 rootpw --iscrypted $6$jo2ubBLAUcdPmGA8$ZscAGk1o5TRVWsKL4fZIMh8mYSZHuVlPEs4JbvnXpBoz2A8eaj.94BbMyP8yVBPQhYyMnB6fJ8uLOHpBMW9JB.
