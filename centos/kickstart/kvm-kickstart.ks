@@ -1,12 +1,13 @@
 #platform=x86, AMD64, or Intel EM64T
+#@SEE https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/installation_guide/sect-kickstart-syntax
 #version=DEVEL
 # System authorization information
 auth --enableshadow --passalgo=sha512
 
 # Use CDROM installation media
-#cdrom
+cdrom
 # Use network installation
-url --url="http://mirrors.aliyun.com/centos/7.4.1708/os/x86_64"
+#url --url="http://mirrors.aliyun.com/centos/7.4.1708/os/x86_64"
 
 # Use graphical install
 #graphical
@@ -35,14 +36,16 @@ services --disabled="chronyd"
 timezone Asia/Shanghai --isUtc --nontp
 
 # System bootloader configuration
+zerombr
 bootloader --append=" console=ttyS0,115200n8 crashkernel=auto" --location=mbr --boot-drive=vda
 # Partition clearing information
 clearpart --all --initlabel
 # Disk partitioning information
-part pv.156 --fstype="lvmpv" --ondisk=vda --size=15059
-part /boot --fstype="xfs" --ondisk=vda --size=300
-volgroup sys --pesize=4096 pv.156
-logvol /  --fstype="xfs" --size=10240 --name=root --vgname=sys
+part /boot --fstype="xfs" --ondisk=vda --size=256
+part pv.01 --fstype="lvmpv" --ondisk=vda --size=1 --grow
+volgroup sys --pesize=4096 pv.01
+logvol swap --fstype="swap" --size=8192 --name=swap --vgname=sys
+logvol /  --fstype="xfs" --size=1 --grow --name=root --vgname=sys
 
 # Do not configure the X Window System
 skipx
