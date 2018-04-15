@@ -57,6 +57,8 @@ reboot
 
 %packages
 @minimal
+@graphical-server-environment
+#@gnome-desktop-environment
 
 %end
 
