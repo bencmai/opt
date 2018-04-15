@@ -9,6 +9,8 @@ auth --enableshadow --passalgo=sha512
 cdrom
 # Use network installation
 #url --url="http://mirrors.aliyun.com/centos/7.4.1708/os/x86_64"
+Configures additional yum repositories that can be used as sources for package installation
+repo --name=aliyun --baseurl="http://mirrors.aliyun.com/centos/7.4.1708/os/x86_64"
 
 # Use graphical install
 #graphical
@@ -50,7 +52,7 @@ logvol swap --fstype="swap" --size=8192 --name=swap --vgname=sys
 logvol /  --fstype="xfs" --size=1 --grow --name=root --vgname=sys
 
 # Do not configure the X Window System
-skipx
+#skipx
 
 # Reboot after installtion
 reboot
