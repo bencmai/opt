@@ -62,10 +62,59 @@ reboot
 #@graphical-server-environment
 #@gnome-desktop-environment
 -iwl*
+-abrt*
 
 %end
 
 %addon com_redhat_kdump --enable --reserve-mb='auto'
+
+%end
+
+%post
+
+# Log Setting
+############################
+{ cat << EOF > /etc/cron.weekly/clean_log.cron
+source /etc/profile
+for f in /var/log/{*,**/**,**/**/**};do
+  if [ -f \$f ];then true > \$f;fi
+  rm -rf /var/log/{*-201*,**/*-201*,**/**/*-201*,**/*.log.*[0-9]}
+done
+EOF
+}
+/bin/sh /etc/cron.weekly/clean_log.cron
+
+# SSH Setting
+############################
+sed -ri \
+-e 's/(^AllowTcpForwarding) (.*)/\1 no/' -e 's/^.(AllowTcpForwarding) (.*)/\1 no/' \
+-e 's/(^X11Forwarding) (.*)/\1 no/' -e 's/^.(X11Forwarding) (.*)/\1 no/' \
+/etc/ssh/sshd_config
+systemctl restart sshd
+
+# Kernel Setting
+############################
+{ cat << EOF > /etc/sysctl.d/vm.conf
+vm.swappiness = 0
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv4.ip_forward = 1
+EOF
+}
+
+# Firewall Setting
+############################
+for z in $(firewall-cmd --get-zones) ; do
+    for s in 'dhcpv6-client' 'samba-client' 'mdns' ; do
+      if [ $(firewall-cmd --query-service=$s --permanent --zone=$z) == 'yes' ]; then
+        firewall-cmd --remove-service=$s --permanent --zone=$z
+      fi
+    done
+done
+
+# Update
+############################
+#yum -y update
+#yum clean all
 
 %end
 
