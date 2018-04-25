@@ -20,6 +20,8 @@ text
 # if have dhcp network
 #vnc
 
+unsupported_hardware
+
 # Run the Setup Agent on first boot
 firstboot --enable
 ignoredisk --only-use=vda
