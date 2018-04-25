@@ -61,6 +61,7 @@ reboot
 @minimal
 #@graphical-server-environment
 #@gnome-desktop-environment
+-iwl*
 
 %end
 
