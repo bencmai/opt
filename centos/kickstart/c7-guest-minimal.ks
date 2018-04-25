@@ -10,7 +10,7 @@ cdrom
 # Use network installation
 #url --url="http://mirrors.aliyun.com/centos/7.4.1708/os/x86_64"
 #Configures additional yum repositories that can be used as sources for package installation
-#repo --name=aliyun --baseurl="http://mirrors.aliyun.com/centos/7.4.1708/os/x86_64"
+repo --name=aliyun --baseurl="http://mirrors.aliyun.com/centos/7.4.1708/os/x86_64"
 
 # Use graphical install
 #graphical
@@ -70,6 +70,8 @@ eula --agreed
 #@gnome-desktop-environment
 -iwl*
 -abrt*
+-*firmware
++linux-firmware
 
 %end
 
@@ -78,6 +80,11 @@ eula --agreed
 %end
 
 %post
+
+# Update
+############################
+yum -y update
+yum clean all
 
 # Log Setting
 ############################
@@ -116,11 +123,6 @@ for z in $(firewall-cmd --get-zones) ; do
       fi
     done
 done
-
-# Update
-############################
-#yum -y update
-#yum clean all
 
 # Digest core file
 ############################
