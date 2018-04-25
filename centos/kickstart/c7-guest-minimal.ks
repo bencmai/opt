@@ -41,7 +41,7 @@ timezone Asia/Shanghai --isUtc --nontp
 
 # System bootloader configuration
 zerombr
-bootloader --append=" console=ttyS0,115200n8 crashkernel=auto" --location=mbr --boot-drive=vda
+bootloader --append=" ipv6.disable=1 console=ttyS0,115200n8 rootflags=uquota,gquota serial crashkernel=auto" --location=mbr --boot-drive=vda
 # Partition clearing information
 clearpart --all --initlabel
 # Disk partitioning information
