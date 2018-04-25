@@ -17,6 +17,9 @@ cdrom
 # Use text mode install
 text
 
+# if have dhcp network
+#vnc
+
 # Run the Setup Agent on first boot
 firstboot --enable
 ignoredisk --only-use=vda
@@ -52,10 +55,12 @@ logvol swap --fstype="swap" --size=8192 --name=swap --vgname=sys
 logvol /  --fstype="xfs" --size=1 --grow --name=root --vgname=sys
 
 # Do not configure the X Window System
-#skipx
+skipx
 
 # Reboot after installtion
 reboot
+
+eula --agreed
 
 %packages
 @^minimal
@@ -90,7 +95,6 @@ sed -ri \
 -e 's/(^AllowTcpForwarding) (.*)/\1 no/' -e 's/^.(AllowTcpForwarding) (.*)/\1 no/' \
 -e 's/(^X11Forwarding) (.*)/\1 no/' -e 's/^.(X11Forwarding) (.*)/\1 no/' \
 /etc/ssh/sshd_config
-systemctl restart sshd
 
 # Kernel Setting
 ############################
