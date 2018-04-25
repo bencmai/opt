@@ -83,7 +83,7 @@ eula --agreed
 
 # Update
 ############################
-yum -y update
+#yum -y update
 yum clean all
 
 # Log Setting
@@ -126,7 +126,7 @@ done
 
 # Digest core file
 ############################
-(find /{etc,usr/bin,/usr/lib/firewalld,/usr/lib/systemd} -type f -exec md5sum {} \; |sort -k2 && rpm -Va |sort -k3 ) > /opt/sys-digest.$(date +%Y.%m.%d).txt
+(find /{etc,usr/bin,usr/lib/firewalld,usr/lib/systemd,usr/sbin} -type f -exec md5sum {} \; |sort -k2 && rpm -Va |sort -k3 ) > /opt/sys-digest.$(date +%Y.%m.%d).txt
 
 %end
 
