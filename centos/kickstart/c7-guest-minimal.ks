@@ -58,7 +58,7 @@ logvol /  --fstype="xfs" --size=1 --grow --name=root --vgname=sys
 reboot
 
 %packages
-@minimal
+@^minimal
 #@graphical-server-environment
 #@gnome-desktop-environment
 -iwl*
