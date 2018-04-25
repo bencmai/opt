@@ -71,7 +71,7 @@ eula --agreed
 -iwl*
 -abrt*
 -*firmware
-+linux-firmware
+linux-firmware
 
 %end
 
